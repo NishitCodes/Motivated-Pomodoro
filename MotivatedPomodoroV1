@@ -17,3 +17,6 @@ BlockInput, Off
 MouseMove, 1, 1, 0, R
 }
 return
+
+;Ctrl+Numpad1 closes the script
+^Numpad1::ExitApp
