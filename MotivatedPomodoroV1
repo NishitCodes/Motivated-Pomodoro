@@ -1,0 +1,19 @@
+Array := ["You are Capable of more than You Know.", "Don’t Stop when You are Tired. Stop when You are Done!", "There is No Substitute for Hard Work. - Thomas Edison", "Push yourself, because no one else is going to do it for you."]
+SetTimer, Breaka, 120000
+SetTimer, Reminder, 300000 ;Posture reminder
+
+Breaka:
+if(44<=A_Min and A_Min<=46)
+{
+SplashTextOn , , Hello, Break in 20 Seconds
+Sleep, 20000 ;Length of time to remind before break
+SplashTextOff
+    Run rundll32.exe user32.dll`,LockWorkStation     ; Lock PC
+    Sleep 1000
+    SendMessage 0x112, 0xF170, 2, , Program Manager  ; Monitor off
+BlockInput, On
+Sleep, 540000 ;Length of break
+BlockInput, Off
+MouseMove, 1, 1, 0, R
+}
+return
