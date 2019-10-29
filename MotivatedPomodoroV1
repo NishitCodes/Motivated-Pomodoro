@@ -1,4 +1,25 @@
+try if !A_IsAdmin && !%False%
+{
+    if A_OSVersion not in WIN_2003,WIN_XP,WIN_2000
+    {
+        Run *RunAs "%A_AhkPath%" "%A_ScriptFullPath%",, UseErrorLevel
+        if !ErrorLevel
+            ExitApp
+    }
+    MsgBox 0x31, AutoHotkey Setup,
+    (LTrim Join`s
+    Setup is running as a limited user.  If you continue, some problems
+    are likely to occur.  It is strongly recommended that you run Setup
+    as an administrator.`n
+    `n
+    To continue anyway, click OK.  Otherwise click Cancel.
+    )
+    IfMsgBox Cancel
+        ExitApp
+}
+
 Array := ["You are Capable of more than You Know.", "Don’t Stop when You are Tired. Stop when You are Done!", "There is No Substitute for Hard Work. - Thomas Edison", "Push yourself, because no one else is going to do it for you."]
+
 SetTimer, Breaka, 120000
 SetTimer, Reminder, 300000 ;Posture reminder
 
