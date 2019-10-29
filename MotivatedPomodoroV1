@@ -1,8 +1,11 @@
+#SingleInstance Force
+
 Array := ["You are Capable of more than You Know.", "Don’t Stop when You are Tired. Stop when You are Done!", "There is No Substitute for Hard Work. - Thomas Edison", "Push yourself, because no one else is going to do it for you."]
+
 SetTimer, Breaka, 120000
 SetTimer, Reminder, 300000 ;Posture reminder
 
-Breaka:
+Break:
 if(44<=A_Min and A_Min<=46)
 {
 SplashTextOn , , Hello, Break in 20 Seconds
