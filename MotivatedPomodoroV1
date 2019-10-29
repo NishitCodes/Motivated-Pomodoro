@@ -1,19 +1,63 @@
-Array := ["You are Capable of more than You Know.", "Don’t Stop when You are Tired. Stop when You are Done!", "There is No Substitute for Hard Work. - Thomas Edison", "Push yourself, because no one else is going to do it for you."]
-SetTimer, Breaka, 120000
+#SingleInstance Force
+
+try if !A_IsAdmin && !%False%
+{
+    if A_OSVersion not in WIN_2003,WIN_XP,WIN_2000
+    {
+        Run *RunAs "%A_AhkPath%" "%A_ScriptFullPath%",, UseErrorLevel
+        if !ErrorLevel
+            ExitApp
+    }
+    MsgBox 0x31, AutoHotkey Setup,
+    (LTrim Join`s
+    Setup is running as a limited user. Input will not be blocked in breaks.`n
+    `n
+    To continue anyway, click OK.  Otherwise click Cancel.
+    )
+    IfMsgBox Cancel
+        ExitApp
+}
+
+Array := ["You are Capable of more than You Know.", "Don’t Stop when You are Tired. Stop when You are Done!", "There is No Substitute for Hard Work. - Thomas Edison", "Push yourself, because no one else is going to do it for you.", "The Secret to Getting Ahead is Getting Started.", "Do not give Up, the Beginning is Always the Hardest.", "Education is the most Powerful Weapon which you can use to Change The World. - Nelson Mandela", "The Struggle you’re in Today is developing the Strength you need for Tomorrow.", "He who is Afraid of asking is Ashamed of Learning. -Danish Proverb", "The Expert in anything was once a Beginner.", "Don’t Limit Your Challenges Challenge Your Limit.", "Teachers Open the Door, but you must Enter by Yourself. - Chinese Proverb", "Remember that Guy who gave Up? Neither does Anybody Else.", "I did not come this far, to only come this far.", "Everything you want is on the other end of Fear.", "Motivation is what gets you started, Habit is what keeps you going.", "The Past cannot be changed. The future is yet in your power.", "Do What is Right, Not What is Easy", "Don’t watch the clock; Do what it does. Keep going.", "What you are looking for is not out there… It’s in You.", "If you Quit once, it becomes a Habit. Do not Quit! - Michael Jordan", "If you have never tried, how will you ever know if there’s any chance. - Jack Ma", "Dreams do not Work until You do.", "Do not allow someone to make you feel like you’re not good enough.", "Nothing great was ever achieved without enthusiasm.", "Change your life today. Don’t gamble on the future, act now, without delay.", "There is no elevator to success. You have to take the stairs.", "If you want something you’ve never had, then you’ve got to do something you’ve never done.", "If you want to achieve something in life, you have to take risks. -Dipa Karmakar", "The Difference between Ordinary and Extraordinary is that Little Extra.", "Accept the challenges so that you can feel the exhilaration of victory. -George S. Patton", "I have failed at times. But I never stopped trying. -Rahul Dravid", "You can't cross the sea merely by standing and staring at the water. -Rabindranath Tagore"]
+
+
+SetTimer, BreakCheck, 120000
 SetTimer, Reminder, 300000 ;Posture reminder
 
-Breaka:
+BreakCheck:
+if((A_Hour = 11 or A_Hour = 14 or A_Hour = 17 or A_Hour = 20 or A_Hour = 23) and (29<=A_Min and A_Min<=31))
+{
+Goto, Break
+}else{
 if(44<=A_Min and A_Min<=46)
 {
+Goto, Break
+}
+}
+return
+
+Reminder:
+Random, rand, 1, Array.MaxIndex()
+msg := Array[rand]
+TrayTip, Sit Properly, %msg%, 0, 32
+return
+
+
+Break:
 SplashTextOn , , Hello, Break in 20 Seconds
 Sleep, 20000 ;Length of time to remind before break
+BlockInput, On
 SplashTextOff
     Run rundll32.exe user32.dll`,LockWorkStation     ; Lock PC
     Sleep 1000
     SendMessage 0x112, 0xF170, 2, , Program Manager  ; Monitor off
-BlockInput, On
 Sleep, 540000 ;Length of break
 BlockInput, Off
 MouseMove, 1, 1, 0, R
-}
+return
+
+~Pause::
+Suspend ; Assign the toggle-suspend function to a hotkey.
+Sleep, 100
+Pause  ; Assign the toggle-pause function to the "pause/break" key...
 return
