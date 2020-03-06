@@ -57,16 +57,10 @@ if (0 < rand and rand < 34) {
 
 TrayTip, Sit Properly, %msg%, 0, 32
 
-if WinExist("ahk_class ApplicationFrameWindow"){
-	WinActivate  ; Uses the last found window.
-	SetTitleMatchMode, 2
-	IfWinActive, Microsoft To Do
-	{
-	}
-}
+if WinExist("Microsoft To Do")
+    WinActivate ; use the window found above
 
 ;SplashImage, C:\Users\Rathore\Pictures\IMG_0133.JPG
-
 Sleep, 500
 SplashImage, Off
 return
